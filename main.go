@@ -27,7 +27,7 @@ func main(){
 }
 
 func basePathHandler(w http.ResponseWriter,r *http.Request){
-fmt.Fprintln(w,"Hello world")
+fmt.Fprintln(w,"Hello go world")
 }
 
 func getProducts(w http.ResponseWriter,r *http.Request){
