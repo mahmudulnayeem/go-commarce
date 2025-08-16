@@ -9,7 +9,7 @@ func GlobalRouter(mux *http.ServeMux) http.Handler {
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		w.Header().Set("Content-Type", "application/json")
 
-		if r.Method != http.MethodOptions {
+		if r.Method == http.MethodOptions {
 			w.WriteHeader(200)
 			return
 		}

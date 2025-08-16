@@ -5,19 +5,15 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ecommarce/handlers"
+	"github.com/ecommarce/middleware"
 	"github.com/ecommarce/utils"
 )
 
 func Serve() {
 	mux := http.NewServeMux()
-	mux.Handle("GET /", http.HandlerFunc(basePathHandler))
-	// products handlers
-	mux.Handle("GET /products", http.HandlerFunc(handlers.GetProducts))
-	mux.Handle("GET /products/{id}", http.HandlerFunc(handlers.GetProductById))
-	mux.Handle("POST /products", http.HandlerFunc(handlers.CreteProduct))
-	mux.Handle("PUT /products", http.HandlerFunc(handlers.UpdateProduct))
-	mux.Handle("DELETE /product", http.HandlerFunc(handlers.DeleteProduct))
+	manager := middleware.NewManager()
+	manager.Use(middleware.Logger)
+	initRoutes(mux, manager)
 
 	globalRouter := utils.GlobalRouter(mux)
 	fmt.Println("Server running on localhost:3000")
@@ -25,5 +21,5 @@ func Serve() {
 }
 
 func basePathHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello go world")
+	utils.SendJSON(w, "Pong", http.StatusOK)
 }

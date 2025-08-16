@@ -58,8 +58,7 @@ func CreteProduct(w http.ResponseWriter, r *http.Request) {
 
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
-	idStr := r.URL.Query().Get("id")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(r.PathValue("id"))
 
 	if err != nil {
 		http.Error(w, "Invalid product ID", http.StatusBadRequest)
@@ -89,8 +88,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteProduct(w http.ResponseWriter, r *http.Request) {
-	idStr := r.URL.Query().Get("id")
-	id, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(r.PathValue("id"))
 
 	if err != nil {
 		http.Error(w, "Invalid product ID", http.StatusBadRequest)
